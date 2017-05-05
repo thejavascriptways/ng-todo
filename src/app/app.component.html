@@ -8,9 +8,16 @@
 </header>
 
 <div class="row">
-  <div class="panel">
-     <input type="text">
-     <p id="subtxt">Hit enter to add</p> 
+  <div class="panel" [@focusPanel]='state'>
+     <input type="text" 
+        placeholder="enter task here" 
+        (focus)='toggleFocus()' 
+        (blur)='toggleFocus()'
+        (keyup.enter)='submitItem($event)'>
+     <p id="subtxt"
+        [@note]='state'>
+        Hit enter to add
+     </p> 
   </div>
 </div>
 
