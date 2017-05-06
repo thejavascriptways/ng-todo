@@ -36,14 +36,40 @@ import { Component, trigger, style, state,transition, animate, keyframes, Input 
           style({opacity:0, transform: 'translateY(100%)', offset:0}),
         ]))
       ])
+    ]),
+    trigger('itemEnter',[
+      state('in', style({transform: 'translateY(0)'})),
+      
+      transition('void => *' , [
+        style({opacity:'0', transform: 'translateY(-100%)'}),
+        animate('300ms ease-in')
+      ]),
+      transition('* => void' , [
+        
+        animate('300ms ease-in', style({opacity:'0', transform: 'scaleY(0) translateY(200px)'}))
+      ])
     ])
   ]
 })
 export class AppComponent {
   state: string = 'inactive';
 
+  ourItems : string[] =[
+    'Angular animations'
+  ];
+
   toggleFocus(){
     console.log('inside toggle focus');
     this.state = (this.state ==='inactive' ? 'active' : 'inactive');
-  }
+  };
+
+  submitItem(event){
+    this.ourItems.push(event.target.value);
+  };
+
+  removeItem(event,i){
+    console.log('inside remove item', i)
+      this.ourItems.splice(i,1);
+  };
+
 }
